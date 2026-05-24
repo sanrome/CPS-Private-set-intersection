@@ -1,16 +1,19 @@
 import secrets
 
 # a polynomial is a list of integers representing the increasing degree coeficients 
+import random
 
-def sample_random_polynomial(k, paillier_public_key):
-    plaintext_space_upper_bound = paillier_public_key.n 
-    
-    random_coefficients = []
+def sample_random_polynomial(k, bound=20):
+
+    coefficients = []
+
     for _ in range(k + 1):
-        random_coeff = secrets.randbelow(plaintext_space_upper_bound)
-        random_coefficients.append(random_coeff)
-        
-    return random_coefficients
+
+        coeff = random.randint(-bound, bound)
+
+        coefficients.append(coeff)
+
+    return coefficients
 
 def polynomial_from_set(set):
     n = len(set)
@@ -38,6 +41,18 @@ def roots(set, polynomial):
             rta.append(e)
     return rta
 
-print(polynomial_from_set([1,2]))
-print(is_root([1,-3,2],34))
-print(roots([1,25,4],[1, -3, 2]))
+def multiply_polynomials(p1, p2):
+    result = [0] * (len(p1) + len(p2) - 1)
+
+    for i in range(len(p1)):
+        for j in range(len(p2)):
+            result[i+j] += p1[i] * p2[j]
+
+    return result
+
+def add_polynomials(p1, p2):
+    max_len = max(len(p1), len(p2))
+    p1 = p1 + [0]*(max_len-len(p1))
+    p2 = p2 + [0]*(max_len-len(p2))
+
+    return [p1[i] + p2[i] for i in range(max_len)]
