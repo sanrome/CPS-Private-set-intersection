@@ -27,12 +27,6 @@ def recover_intersection(players, polynomial):
     intersection = set(players[0].set)
 
     for player in players:
-        valid = set()
-
-        for element in player.set:
-            if is_root(polynomial, element):
-                valid.add(element)
-
-        intersection = intersection.intersection(valid)
+        intersection = intersection.intersection(roots(player.set, polynomial))
 
     return list(intersection)

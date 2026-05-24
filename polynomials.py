@@ -4,13 +4,10 @@ import secrets
 import random
 
 def sample_random_polynomial(k, bound=20):
-
     coefficients = []
 
     for _ in range(k + 1):
-
         coeff = random.randint(-bound, bound)
-
         coefficients.append(coeff)
 
     return coefficients
