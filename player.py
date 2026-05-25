@@ -14,3 +14,15 @@ class Player:
             rta.append(self.public_key.encrypt(int(coef)))
         return rta
 
+    def send_encrypted_polynomial(
+            self,
+            receiver,
+            bus
+    ):
+        encrypted = self.get_encrypted_polynomial()
+
+        bus.send(
+            self.id,
+            receiver,
+            encrypted
+        )
