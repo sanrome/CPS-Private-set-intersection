@@ -1,3 +1,4 @@
+from phe.command_line import encrypt
 from polynomials import polynomial_from_set
 class Player:
     c = 5
@@ -6,9 +7,10 @@ class Player:
         self.set = private_set
         self.public_key = public_key
         self.polynomial = polynomial_from_set(private_set)
-    
+
     def get_encrypted_polynomial(self):
         rta = []
         for coef in self.polynomial:
-            rta.append(enc(self.public_key, private_key))
+            rta.append(self.public_key.encrypt(int(coef)))
         return rta
+
