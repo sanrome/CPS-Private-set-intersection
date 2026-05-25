@@ -24,9 +24,4 @@ def run_protocol(players):
     return decrypted
 
 def recover_intersection(players, polynomial):
-    intersection = set(players[0].set)
-
-    for player in players:
-        intersection = intersection.intersection(roots(player.set, polynomial))
-
-    return list(intersection)
+    return roots(players[0].set, polynomial)
