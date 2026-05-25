@@ -13,9 +13,10 @@ def run_protocol(players, c=1):
     for i in range(len(players)):
         sender = players[i]
 
+        encrypted_poly = (sender.get_encrypted_polynomial())
         for offset in range(1, c + 1):
-            receiver = players[(i + offset)]
-            sender.send_encrypted_polynomial(receiver, bus)
+            receiver = players[(i + offset)%len(players)]
+            bus.send(sender.id,receiver.id,encrypted_poly)
 
     phis = []
 
