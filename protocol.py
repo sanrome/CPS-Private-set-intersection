@@ -3,23 +3,18 @@ from utils import *
 
 def run_protocol(players):
     encrypted_fis = []
-
-    for p in players:
-        encrypted_fis.append(p.get_encrypted_polynomial())
-
-    phis = []
-
+    c = 2
+    player_polynomials = [[] for _ in range(len(players))]
+    end_lambda = [0]
+    # each player sends its encrypted polynomial
     for i in range(len(players)):
-        ri = sample_random_polynomial(len(players[i].set),bound=20)
-        phi_i = encrypted_multiply_plain(encrypted_fis[i],ri)
-        phis.append(phi_i)
+        for j in range(1, c):
+            player_polynomials[(i + c) % len(players)].append(players[i].get_encrypted_polynomial())
+    
+    for i in range(len(players)):
+        end_lambda = players[i].calculate_lambda(end_lambda, player_polynomials[i])
 
-    total = phis[0]
-
-    for i in range(1, len(phis)):
-        total = encrypted_add(total, phis[i])
-
-    decrypted = get_decrypted_polynomial(total)
+    decrypted = get_decrypted_polynomial(end_lambda)
 
     return decrypted
 

@@ -1,11 +1,11 @@
 from protocol import *
 from player import Player
 
-alice = Player("Alice",[1, 2, 3, 5, 12],public_key)
+alice = Player("Alice",[1, 2, 2, 3, 5, 12],public_key)
 
-bob = Player("Bob",[2, 3, 9, 12],public_key)
+bob = Player("Bob",[2, 2, 3, 9, 12],public_key)
 
-charlie = Player("Charlie",[0, 2, 3, 7],public_key)
+charlie = Player("Charlie",[0, 2, 2, 3, 7],public_key)
 
 players = [alice, bob, charlie]
 
