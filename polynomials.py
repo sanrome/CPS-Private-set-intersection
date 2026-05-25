@@ -22,22 +22,29 @@ def polynomial_from_set(set):
             
     return polynomial
 
-def is_root(polynomial, element):
+# returns if the element is a root of the polynomial, the quotient and reminder of the polynomial division
+def ruffini_divide(polynomial, element):
     current_val = polynomial[0]
-    
+    quotient = [current_val]
+
     for i in range(1, len(polynomial)):
         current_val = polynomial[i] + (current_val * element)
-    
-    return current_val == 0
+        quotient.append(current_val)
 
-# returns the elements from the set that are roots of the given polynomial
+    reminder = quotient.pop()
+    return quotient, reminder
+
+# returns the elements from the multiset that are roots of the given polynomial
 def roots(set, polynomial):
     rta = []
     for e in set:
-        if(is_root(polynomial, e)):
+        quotient, reminder = ruffini_divide(polynomial, e)
+        if(reminder == 0):
+            # replace the polynomial with the factored version without the root
+            polynomial = quotient
             rta.append(e)
     return rta
 
 print(polynomial_from_set([1,2]))
-print(is_root([1,-3,2],34))
-print(roots([1,25,4],[1, -3, 2]))
+print(ruffini_divide([1,-3,2],1))
+print(roots([1,1,1,4],[1, -2, 1]))
