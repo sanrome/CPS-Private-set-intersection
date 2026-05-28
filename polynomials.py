@@ -1,22 +1,22 @@
 import secrets
 
-# a polynomial is a list of integers representing the increasing degree coeficients 
-import random
+#CONVENTION: a polynomial is a list of integers representing the decreasing degree coefficients 
+BOUND = 2**32 ## 2^32 gives ~4 billion possible values per coefficient which is astronomically harder to brute-force than bound=20 
 
-def sample_random_polynomial(k, bound=20):
+def sample_random_polynomial(k, bound=BOUND):
     coefficients = []
 
     for _ in range(k + 1):
-        coeff = random.randint(-bound, bound)
+        coeff = secrets.randbelow(2 * bound + 1) - bound
         coefficients.append(coeff)
 
     return coefficients
 
-def polynomial_from_set(set):
-    n = len(set)
+def polynomial_from_set(elements):
+    n = len(elements)
     polynomial = [1] + [0] * n
     
-    for i, e in enumerate(set):
+    for i, e in enumerate(elements):
         for j in range(i + 1, 0, -1):
             polynomial[j] = polynomial[j] - e * polynomial[j - 1]
             
@@ -35,9 +35,9 @@ def ruffini_divide(polynomial, element):
     return quotient, reminder
 
 # returns the elements from the multiset that are roots of the given polynomial
-def roots(set, polynomial):
+def roots(elements, polynomial):
     rta = []
-    for e in set:
+    for e in elements:
         quotient, reminder = ruffini_divide(polynomial, e)
         if(reminder == 0):
             # replace the polynomial with the factored version without the root
