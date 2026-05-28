@@ -25,7 +25,7 @@ print("\n================================")
 print("RUNNING PROTOCOL")
 print("================================")
 
-final_polynomial = run_protocol(players)
+final_polynomial = run_protocol(players, c=2)
 
 print("\nFinal Polynomial:")
 print(final_polynomial)
