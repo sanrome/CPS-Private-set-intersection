@@ -1,4 +1,3 @@
-from phe.command_line import encrypt
 from polynomials import polynomial_from_set, sample_random_polynomial
 from utils import *
 
