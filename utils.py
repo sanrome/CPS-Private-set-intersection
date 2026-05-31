@@ -24,11 +24,10 @@ def encrypted_add(p1, p2):
     return result
 
 def encrypted_multiply_plain(enc_poly, plain_poly):
-    plain_lowest = list(reversed(plain_poly))
-    result = [public_key.encrypt(0)] * (len(enc_poly) + len(plain_lowest) - 1)
+    result = [public_key.encrypt(0)] * (len(enc_poly) + len(plain_poly) - 1)
 
     for i in range(len(enc_poly)):
-        for j in range(len(plain_lowest)):
-            result[i + j] += enc_poly[i] * plain_lowest[j]
+        for j in range(len(plain_poly)):
+            result[i + j] += enc_poly[i] * plain_poly[j]
 
     return result
