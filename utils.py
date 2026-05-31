@@ -9,6 +9,7 @@ def get_decrypted_polynomial(enc_poly):
     for coef in enc_poly:
         decrypted.append(private_key.decrypt(coef))
 
+    decrypted.reverse()
     return decrypted
 
 def encrypted_add(p1, p2):
@@ -23,10 +24,11 @@ def encrypted_add(p1, p2):
     return result
 
 def encrypted_multiply_plain(enc_poly, plain_poly):
-    result = [public_key.encrypt(0)] * (len(enc_poly) + len(plain_poly) - 1)
+    plain_lowest = list(reversed(plain_poly))
+    result = [public_key.encrypt(0)] * (len(enc_poly) + len(plain_lowest) - 1)
 
     for i in range(len(enc_poly)):
-        for j in range(len(plain_poly)):
-            result[i+j] += enc_poly[i] * plain_poly[j]
+        for j in range(len(plain_lowest)):
+            result[i + j] += enc_poly[i] * plain_lowest[j]
 
     return result

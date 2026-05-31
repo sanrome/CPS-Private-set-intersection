@@ -8,8 +8,9 @@ class Player:
         self.set = private_set
         self.public_key = public_key
         self.polynomial = polynomial_from_set(private_set)
+        poly_lowest = list(reversed(self.polynomial))
         encrypted_polynomial = []
-        for coef in self.polynomial:
+        for coef in poly_lowest:
             encrypted_polynomial.append(self.public_key.encrypt(int(coef)))
         self.encrypted_polynomial = encrypted_polynomial
 

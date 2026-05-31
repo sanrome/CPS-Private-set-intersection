@@ -12,7 +12,7 @@ def run_protocol(players, c=1):
              
     end_lambda = players[0].calculate_lambda(None, player_polynomials[0])
 
-    for i in range(len(players)):
+    for i in range(1, len(players)):
         end_lambda = players[i].calculate_lambda(end_lambda, player_polynomials[i])
 
     decrypted = get_decrypted_polynomial(end_lambda)
